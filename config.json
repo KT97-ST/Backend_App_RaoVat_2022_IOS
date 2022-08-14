@@ -1,0 +1,14 @@
+{
+    "domain":"http://localhost:3000",
+    "mongodb":{
+        "server":"cluster0.5qsxmxj.mongodb.net",
+        "username":"kthanh",
+        "password":"kthanh",
+        "dbname":"AppRaoVat2022"
+    },
+    "mail":{
+        "smtpserver":"",
+        "username":"",
+        "password":""
+    }
+}

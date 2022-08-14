@@ -1,0 +1,76 @@
+<script>
+  $(document).ready(function () {
+    var url = "http://localhost:3000";
+    function loadCity() {
+      $.post(url + "/city", function (data2) {
+        if (data2.kq == 1) {
+          $("#city_List").html("");
+          data2.list.forEach(function (city) {
+            $("#city_List").append(
+              `
+                      <li class="list-group-item city" cityID="` +
+                city._id +
+                `">` +
+                city.Name +
+                `</li>
+                      `
+            );
+          });
+        }
+      });
+    }
+
+    loadCity();
+    $(document).on("click", ".city", function () {
+      var Ten = $(this).html();
+      var Id_City = $(this).attr("cityid");
+      $("#cityName_upd").val(Ten);
+      $("#hid_cityID").val(Id_City);
+    });
+
+    $("#btn_UpdateCity").click(function () {
+      $.post(
+        url + "/city/update",
+        {
+          CityID: $("#hid_cityID").val(),
+          Name: $("#cityName_upd").val(),
+        },
+        function (data) {
+          //console.log(data);
+          loadCity();
+        }
+      );
+    });
+
+    $("#btn_DeleteCity").click(function () {
+      $.post(
+        url + "/city/delete",
+        {
+          CityID: $("#hid_cityID").val(),
+        },
+        function (data) {
+          //console.log(data);
+          loadCity();
+        }
+      );
+    });
+  });
+</script>
+
+<div class="form-group">
+  <label for="cityName">Name:</label>
+  <input type="text" class="form-control" id="cityName" />
+  <button type="button" class="btn btn-primary" id="btn_AddNewCity">
+    Thêm
+  </button>
+</div>
+
+<ul class="list-group" id="city_List"></ul>
+
+<div class="form-group" id="city_formUpdate">
+  <input type="hidden" id="hid_cityID" value="" />
+  <label for="cityName_upd">Name:</label>
+  <input type="text" class="form-control" id="cityName_upd" />
+  <button type="button" class="btn btn-success" id="btn_UpdateCity">Sửa</button>
+  <button type="button" class="btn btn-danger" id="btn_DeleteCity">Xóa</button>
+</div>
