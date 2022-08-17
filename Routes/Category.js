@@ -34,6 +34,10 @@ module.exports = function(app){
             Name: req.body.CateName,
             Image: req.body.ImageCate
         }, function(err){
+            console.log(req.body.idCate);
+            console.log(req.body.CateName);
+            console.log(req.body.ImageCate);
+           
             if(err){
                 res.json({kq:0, errMsg:err});
             }else{

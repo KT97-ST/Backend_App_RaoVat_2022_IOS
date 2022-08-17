@@ -39,15 +39,15 @@ module.exports = function(app){
             if(err instanceof multer.MulterError){
                 setTimeout(()=>{
                     res.json({kq:0, errMsg:err});
-                }, 3000);
+                }, 1500);
             }else if(err){
                 setTimeout(()=>{
                     res.json({kq:0, errMsg:err});
-                }, 3000);
+                }, 1500);
             }else{
                 setTimeout(()=>{
                     res.json({kq:1, urlFile: req.file});
-                }, 3000);
+                }, 1500);
             }
         });
     });

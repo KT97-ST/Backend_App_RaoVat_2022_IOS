@@ -98,6 +98,34 @@
       });
     });
 
+	$("#hinhsp_Detail").change(function () {
+      var data = new FormData();
+      jQuery.each(jQuery("#hinhsp_Detail")[0].files, function (i, file) {
+		console.log("hinhdaidien");
+        data.append("hinhdaidien", file);
+      });
+
+      jQuery.ajax({
+        url: url + "/uploadFile",
+        data: data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        method: "POST",
+        type: "POST", // For jQuery < 1.9
+        success: function (data) {
+			if(data.kq==1){
+                //console.log(data);
+                //$("#imgAvatar").attr("src","upload/" + data.file);
+                $("#cate_Detail").attr("src",url+`/upload/`+data.urlFile.filename);
+                $("#file_ImageCate_Details").val(data.urlFile.filename);
+            }else{
+                console.log("Upload fail!");
+            }
+        },
+      });
+    });
+
     $("#btn_Add_New_Cate").click(function () {
       if (
         $("#cateName").val().length == 0 ||
@@ -126,24 +154,28 @@
     $(document).on("click", ".category", function () {
       var hinhSrc = $(this).attr("srcHinh");
       var nameCate = $(this).html();
-      var idCate = $(this).attr("idcate");
+      var idCate = $(this).attr("categoryid");
+	
       $("#cate_Detail").attr("src", url + "/upload/" + hinhSrc);
       $("#cateName_Detail").val(nameCate);
-      $("#file_ImageCate_Detail").val(hinhSrc);
+      $("#file_ImageCate_Details").val(hinhSrc);
       $("#idCate_Detail").val(idCate);
+	 
     });
 
     $("#btn_Update_Cate").click(function () {
+		console.log($("#file_ImageCate_Details").val());
       $.post(
         url + "/category/update",
         {
           idCate: $("#idCate_Detail").val(),
           CateName: $("#cateName_Detail").val(),
-          ImageCate: $("#file_ImageCate_Detail").val(),
+          ImageCate: $("#file_ImageCate_Details").val(),
         },
         function (data) {
           if (data.kq == 1) {
             alert("Update");
+            loadCategory();
           } else {
             console.log(data);
             alert("Update cate failed: " + data.errMsg);
@@ -153,17 +185,20 @@
     });
 
     $("#btn_Delete_Cate").click(function () {
-      $.post(
-        url + "/category/delete",
-        { idCate: $("#idCate_Detail").val() },
-        function (data) {
-          if (data.kq == 1) {
-            loadCategory();
-          } else {
-            alert("Delete cate failed: " + data.errMsg);
+      var chon = confirm("Are you sure you want to delete?");
+      if (chon) {
+        $.post(
+          url + "/category/delete",
+          { idCate: $("#idCate_Detail").val() },
+          function (data) {
+            if (data.kq == 1) {
+              loadCategory();
+            } else {
+              alert("Delete cate failed: " + data.errMsg);
+            }
           }
-        }
-      );
+        );
+      }
     });
   });
 </script>
