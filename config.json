@@ -1,9 +1,9 @@
 {
     "domain":"http://localhost:3000",
     "mongodb":{
-        "server":"cluster0.5qsxmxj.mongodb.net",
+        "server":"cluster0.ushreia.mongodb.net",
         "username":"kthanh",
-        "password":"kthanh",
+        "password":"kthanh641",
         "dbname":"AppRaoVat2022"
     },
     "mail":{
