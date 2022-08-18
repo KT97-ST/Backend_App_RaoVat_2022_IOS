@@ -33,6 +33,5 @@ app.use(bodyParser.urlencoded({ extended: false}));
 require("./Routes/FileManager")(app);
 require("./Routes/Account")(app);
 require("./Routes/City")(app);
-require("./Routes/Category")(app);
-require("./Routes/Post")(app);
+
 //test
