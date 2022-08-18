@@ -43,19 +43,16 @@
     });
 
     $("#btn_DeleteCity").click(function () {
-      var chon = confirm("Are you sure you want to delete?");
-      if (chon) {
-        $.post(
-          url + "/city/delete",
-          {
-            CityID: $("#hid_cityID").val(),
-          },
-          function (data) {
-            //console.log(data);
-            loadCity();
-          }
-        );
-      }
+      $.post(
+        url + "/city/delete",
+        {
+          CityID: $("#hid_cityID").val(),
+        },
+        function (data) {
+          //console.log(data);
+          loadCity();
+        }
+      );
     });
   });
 </script>
